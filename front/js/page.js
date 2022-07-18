@@ -23,7 +23,7 @@ function rowOnFocus(button, trId)
 
 function validateName(input)
 {
-    var regex = /^[a-zA-Z.-]{1,100}$/;
+    var regex = /^[a-zA-Z.-\s]{1,100}$/;
     if(regex.test(input.value))
         input.style.borderColor = "green";
     else

@@ -23,8 +23,8 @@
                 <form method="POST" action="/action">
                     <tr data-user-id="{{$user.ID}}">
                         <td hidden><input am-font="normal theme" type="hidden" name="id" value="{{$user.ID}}" readonly></td>
-                        <td><input pattern="^[a-zA-Z.-]{1,100}$" onchange="validateName(this)" am-font="normal theme" type="text" name="first_name" value="{{$user.FirstName}}" readonly required></td>
-                        <td><input pattern="^[a-zA-Z.-]{1,100}$" onchange="validateName(this)" am-font="normal theme" type="text" name="last_name" value="{{$user.LastName}}" readonly required></td>
+                        <td><input pattern="^[a-zA-Z\s.-]{1,100}$" onchange="validateName(this)" am-font="normal theme" type="text" name="first_name" value="{{$user.FirstName}}" readonly required></td>
+                        <td><input pattern="^[a-zA-Z\s.-]{1,100}$" onchange="validateName(this)" am-font="normal theme" type="text" name="last_name" value="{{$user.LastName}}" readonly required></td>
                         <td><input am-font="normal theme" type="date" name="birth_date" value="{{$user.BirthDate}}" min="1962-01-01" max="2005-01-01" readonly required></td>
                         <td>
                             <select am-font="normal theme" name="gender" disabled required>
@@ -66,7 +66,7 @@
                 id="first_name" 
                 name="first_name"
                 required
-                pattern="^[a-zA-Z.-]{1,100}$"
+                pattern="^[a-zA-Z\s.-]{1,100}$"
                 onchange="validateName(this)">
             </div>
             <div am-input>
@@ -78,7 +78,7 @@
                 id="last_name" 
                 name="last_name" 
                 required
-                pattern="^[a-zA-Z.-]{1,100}$"
+                pattern="^[a-zA-Z\s.-]{1,100}$"
                 onchange="validateName(this)">
             </div>
             <div am-input>
