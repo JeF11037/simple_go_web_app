@@ -1,0 +1,9 @@
+:root {
+    --font-size-theme: 18px;
+    --font-weight-bold: 700;
+}
+
+[am-font~="normal"] {
+    font-size: var(--font-size-theme);
+    font-weight: var(--font-weight-normal);
+}

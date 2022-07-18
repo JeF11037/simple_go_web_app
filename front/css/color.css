@@ -1,0 +1,37 @@
+:root {
+    --color-dark: black;
+    --color-light: white;
+    --color-theme: rgba(0, 0, 0, 0.8);
+    --color-theme-lighter: rgba(0, 0, 0, 0.5);
+}
+
+[am-bg~="light"] 
+{
+    background-color: var(--color-light);
+}
+
+[am-bg~="dark"] 
+{
+    background-color: var(--color-dark);
+}
+
+[am-bg~="theme"] 
+{
+    background-color: var(--color-theme);
+}
+
+[am-font~="dark"] {
+    color: var(--color-dark);
+}
+
+[am-font~="light"] {
+    color: var(--color-light);
+}
+
+[am-font~="theme"] {
+    color: var(--color-theme);
+}
+
+[am-font~="lighter"] {
+    color: var(--color-theme-lighter);
+}
