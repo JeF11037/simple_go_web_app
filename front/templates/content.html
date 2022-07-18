@@ -23,16 +23,24 @@
                 <form method="POST" action="/action">
                     <tr data-user-id="{{$user.ID}}">
                         <td hidden><input am-font="normal theme" type="hidden" name="id" value="{{$user.ID}}" readonly></td>
-                        <td><input am-font="normal theme" type="text" name="first_name" value="{{$user.FirstName}}" readonly></td>
-                        <td><input am-font="normal theme" type="text" name="last_name" value="{{$user.LastName}}" readonly></td>
-                        <td><input am-font="normal theme" type="date" name="birth_date" value="{{$user.BirthDate}}" min="1962-01-01" max="2005-01-01" readonly></td>
+                        <td><input pattern="^[a-zA-Z.-]{1,100}$" onchange="validateName(this)" am-font="normal theme" type="text" name="first_name" value="{{$user.FirstName}}" readonly required></td>
+                        <td><input pattern="^[a-zA-Z.-]{1,100}$" onchange="validateName(this)" am-font="normal theme" type="text" name="last_name" value="{{$user.LastName}}" readonly required></td>
+                        <td><input am-font="normal theme" type="date" name="birth_date" value="{{$user.BirthDate}}" min="1962-01-01" max="2005-01-01" readonly required></td>
                         <td>
-                            <select am-font="normal theme" name="gender" disabled>
+                            <select am-font="normal theme" name="gender" disabled required>
                                 <option am-font="normal theme" data-translation="table gender male" value="Male" {{if eq $user.Gender "Male"}}selected{{end}}>Male</option>
                                 <option am-font="normal theme" data-translation="table gender female" value="Female" {{if eq $user.Gender "Female"}}selected{{end}}>Female</option>
                             </select>
                         </td>
-                        <td><input am-font="normal theme" type="text" name="email" value="{{$user.Email}}" readonly></td>
+                        <td><input
+                            am-font="normal theme"
+                            type="text"
+                            name="email"
+                            value="{{$user.Email}}"
+                            pattern="^(([^<>()[\]\\.,;:\s@']+(\.[^<>()[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$"
+                            onchange="validateEmail(this)"
+                            readonly
+                            required></td>
                         <td><input am-font="normal theme" type="text" name="address" value="{{$user.Address}}" readonly></td>
                         <td class="actions">
                             <input type="hidden" name="id" value="{{$user.ID}}">
@@ -52,28 +60,31 @@
             <div am-input>
                 <label am-font="normal theme" for="first_name" data-translation="table first_name">First Name</label>
                 <input
+                data-adding
                 am-font="normal theme"
                 type="text" 
                 id="first_name" 
                 name="first_name"
                 required
-                pattern="^[a-zA-Z]{1,100}$"
-                onkeyup="validateName(this)">
+                pattern="^[a-zA-Z.-]{1,100}$"
+                onchange="validateName(this)">
             </div>
             <div am-input>
                 <label am-font="normal theme" for="last_name" data-translation="table last_name">Last Name</label>
                 <input
+                data-adding
                 am-font="normal theme"
                 type="text" 
                 id="last_name" 
                 name="last_name" 
                 required
-                pattern="^[a-zA-Z]{1,100}$"
-                onkeyup="validateName(this)">
+                pattern="^[a-zA-Z.-]{1,100}$"
+                onchange="validateName(this)">
             </div>
             <div am-input>
                 <label am-font="normal theme" for="birth_date" data-translation="table birth_date">Birth Date</label>
                 <input 
+                data-adding
                 am-font="normal theme"
                 type="date" 
                 id="birth_date" 
@@ -93,17 +104,18 @@
             <div am-input>
                 <label am-font="normal theme" for="email" data-translation="table email">E-mail</label>
                 <input 
+                data-adding
                 am-font="normal theme"
                 type="text" 
                 id="email" 
                 name="email" 
                 required
                 pattern="^(([^<>()[\]\\.,;:\s@']+(\.[^<>()[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$"
-                onkeyup="validateEmail(this)">
+                onchange="validateEmail(this)">
             </div>
             <div am-input>
                 <label am-font="normal theme" for="address" data-translation="table address">Address</label>
-                <input am-font="normal theme" type="text" id="address" name="address">
+                <input data-adding am-font="normal theme" type="text" id="address" name="address">
             </div>
             <div am-input>
                 <button am-font="normal theme" type="submit" name="action" value="add"><span data-translation="button add">Add</span>&nbsp;<img src="icons/add.svg" alt="Add"></button>

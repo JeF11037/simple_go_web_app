@@ -26,7 +26,7 @@ table td
 
 table td input, table td select {
     width: 100%;
-    border: none;
+    border: 1px solid var(--color-light);
     outline: none;
 }
 
