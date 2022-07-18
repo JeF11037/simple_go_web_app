@@ -1,0 +1,54 @@
+{
+    "table": {
+        "title": {
+            "ru": "Таблица клиентов",
+            "en": "Customers table"
+        },
+        "first_name": {
+            "ru": "Имя",
+            "en": "First Name"
+        },
+        "last_name": {
+            "ru": "Фамилия",
+            "en": "Last Name"
+        },
+        "birth_date": {
+            "ru": "Дата Рождения",
+            "en": "Birth Date"
+        },
+        "gender": {
+            "ru": "Пол",
+            "en": "Gender",
+            "male": {
+                "ru": "Мужчина",
+                "en": "Male"
+            },
+            "female": {
+                "ru": "Женщина",
+                "en": "Female"
+            }
+        },
+        "email": {
+            "ru": "Э-почта",
+            "en": "E-mail"
+        },
+        "address": {
+            "ru": "Адрес",
+            "en": "Address"
+        },
+        "action": {
+            "ru": "Изменить/Удалить",
+            "en": "Edit/Delete"
+        }
+    },
+    "button": {
+        "add": {
+            "ru": "Добавить нового пользователя",
+            "en": "Add new customer"
+        },
+        "erase": {
+            "ru": "Стереть данные",
+            "en": "Erase the data"
+        }
+    }
+}
