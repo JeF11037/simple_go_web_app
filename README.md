@@ -8,3 +8,4 @@
     - Database only. The table will generate itself
 - No external dependencies
 - go run main.go :D
+- url: localhost:8080
