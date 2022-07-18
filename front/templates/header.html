@@ -1,0 +1,9 @@
+{{define "header" -}}
+<body onload="translatePage()">
+<header am-bg="theme">
+    <select am-font="normal theme" id="language" onchange="changeLanguage(this.value)">
+        <option am-font="normal theme" value="en">Eng</option>
+        <option am-font="normal theme" value="ru">Rus</option>
+    </select>
+</header>
+{{end}}

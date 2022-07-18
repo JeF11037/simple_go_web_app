@@ -1,0 +1,129 @@
+{{define "content" -}}
+<section am-bg="white">
+    <div am-content am-bg="light" class="content-table">
+        <div am-bg="theme" class="content-table-head">
+            <div am-font="normal light" class="content-table-head-heading js-translate" data-translation="table title"></div>
+            <div></div>
+            <div class="search"></div>
+        </div>
+        <table id="table">
+            <thead>
+                <tr am-font="normal lighter">
+                    <th data-translation="table first_name" >First Name</th>
+                    <th data-translation="table last_name">Last Name</th>
+                    <th data-translation="table birth_date" data-sortas="numerical">Birth Date</th>
+                    <th data-translation="table gender">Gender</th>
+                    <th data-translation="table email">Email</th>
+                    <th data-translation="table address">Address</th>
+                    <th data-translation="table action">Action</th> 
+                </tr>
+            </thead>
+            <tbody>
+                {{range $index, $user := .Users}}
+                <form method="POST" action="/action">
+                    <tr data-user-id="{{$user.ID}}">
+                        <td hidden><input am-font="normal theme" type="hidden" name="id" value="{{$user.ID}}" readonly></td>
+                        <td><input am-font="normal theme" type="text" name="first_name" value="{{$user.FirstName}}" readonly></td>
+                        <td><input am-font="normal theme" type="text" name="last_name" value="{{$user.LastName}}" readonly></td>
+                        <td><input am-font="normal theme" type="date" name="birth_date" value="{{$user.BirthDate}}" min="1962-01-01" max="2005-01-01" readonly></td>
+                        <td>
+                            <select am-font="normal theme" name="gender" disabled>
+                                <option am-font="normal theme" data-translation="table gender male" value="Male" {{if eq $user.Gender "Male"}}selected{{end}}>Male</option>
+                                <option am-font="normal theme" data-translation="table gender female" value="Female" {{if eq $user.Gender "Female"}}selected{{end}}>Female</option>
+                            </select>
+                        </td>
+                        <td><input am-font="normal theme" type="text" name="email" value="{{$user.Email}}" readonly></td>
+                        <td><input am-font="normal theme" type="text" name="address" value="{{$user.Address}}" readonly></td>
+                        <td class="actions">
+                            <input type="hidden" name="id" value="{{$user.ID}}">
+                            <button am-bg="light" type="button" onclick="rowOnFocus(this, '{{$user.ID}}')"><img src="icons/edit.svg" alt="Edit"></button>
+                            <button am-bg="light" type="submit" name="action" value="update" hidden><img src="icons/confirm.svg" alt="Edit"></button>
+                            <button am-bg="light" type="submit" name="action" value="delete"><img src="icons/remove.svg" alt="Remove"></button>
+                        </td>
+                    </tr>
+                </form>
+                {{end}}
+            </tbody>
+            <tfoot></tfoot>
+        </table>
+    </div>
+    <div am-content am-bg="light" class="content-panel">
+        <form method="POST" action="/action">
+            <div am-input>
+                <label am-font="normal theme" for="first_name" data-translation="table first_name">First Name</label>
+                <input
+                am-font="normal theme"
+                type="text" 
+                id="first_name" 
+                name="first_name"
+                required
+                pattern="^[a-zA-Z]{1,100}$"
+                onkeyup="validateName(this)">
+            </div>
+            <div am-input>
+                <label am-font="normal theme" for="last_name" data-translation="table last_name">Last Name</label>
+                <input
+                am-font="normal theme"
+                type="text" 
+                id="last_name" 
+                name="last_name" 
+                required
+                pattern="^[a-zA-Z]{1,100}$"
+                onkeyup="validateName(this)">
+            </div>
+            <div am-input>
+                <label am-font="normal theme" for="birth_date" data-translation="table birth_date">Birth Date</label>
+                <input 
+                am-font="normal theme"
+                type="date" 
+                id="birth_date" 
+                name="birth_date" 
+                min="1962-01-01"
+                max="2005-01-01"
+                required>
+            </div>
+            <div am-input>
+                <label am-font="normal theme" for="gender" data-translation="table gender">Gender</label>
+                <select am-font="normal theme" name="gender" id="gender" required>
+                    <option am-font="normal theme" value="" hidden selected disabled></option>
+                    <option am-font="normal theme" data-translation="table gender male" value="Male">Male</option>
+                    <option am-font="normal theme" data-translation="table gender female" value="Female">Female</option>
+                </select>
+            </div>  
+            <div am-input>
+                <label am-font="normal theme" for="email" data-translation="table email">E-mail</label>
+                <input 
+                am-font="normal theme"
+                type="text" 
+                id="email" 
+                name="email" 
+                required
+                pattern="^(([^<>()[\]\\.,;:\s@']+(\.[^<>()[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$"
+                onkeyup="validateEmail(this)">
+            </div>
+            <div am-input>
+                <label am-font="normal theme" for="address" data-translation="table address">Address</label>
+                <input am-font="normal theme" type="text" id="address" name="address">
+            </div>
+            <div am-input>
+                <button am-font="normal theme" type="submit" name="action" value="add"><span data-translation="button add">Add</span>&nbsp;<img src="icons/add.svg" alt="Add"></button>
+                <button am-font="normal theme" type="button" onclick="erase()"><span data-translation="button erase">Erase</span>&nbsp;<img src="icons/erase.svg" alt="Erase"></button>
+            </div>
+        </form>
+    </div>
+</section>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#table").fancyTable({
+            sortable: false,
+			pagination: true,
+			perPage:6,
+            searchable: true,
+			globalSearch:true,
+            globalSearchExcludeColumns: [7]
+		});		
+        $(".fancySearchRow").children("th").children("input").appendTo(".search");
+        $(".fancySearchRow").remove();
+	});
+</script>
+{{end}}
